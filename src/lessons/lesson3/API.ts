@@ -8,12 +8,12 @@ const axiosInstance = axios.create(configOMB);
 
 const API = {
     searchFilmsByTitle: (title: string) => {
-        return axiosInstance.get(configOMB.baseURL + `?t=${title}&apikey=${key}`)
+        return axiosInstance.get(`https://cors-everywhere-me.herokuapp.com/` + configOMB.baseURL + `?t=${title}&apikey=${key}`)
             // .then(response => response.data)
 
     },
     searchFilmsByType: (title: string, type: string) => {
-        return axiosInstance.get(configOMB.baseURL + `?t=${title}&type=${type}&apikey=${key}`)
+        return axiosInstance.get(`https://cors-everywhere-me.herokuapp.com/` + configOMB.baseURL + `?t=${title}&type=${type}&apikey=${key}`)
             // .then(response => response.data)
     }
 };

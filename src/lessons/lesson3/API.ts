@@ -8,14 +8,24 @@ const axiosInstance = axios.create(configOMB);
 
 const API = {
     searchFilmsByTitle: (title: string) => {
-        return axiosInstance.get(`https://cors-everywhere-me.herokuapp.com/` + configOMB.baseURL + `?t=${title}&apikey=${key}`)
-            // .then(response => response.data)
+        const query = `?apikey=${key}&s=${title}`
+        return axiosInstance.get<{}, TestType<ResponseType>>(`https://cors-everywhere-me.herokuapp.com/` + configOMB.baseURL + query)
 
     },
     searchFilmsByType: (title: string, type: string) => {
-        return axiosInstance.get(`https://cors-everywhere-me.herokuapp.com/` + configOMB.baseURL + `?t=${title}&type=${type}&apikey=${key}`)
-            // .then(response => response.data)
+        const query = `?apikey=${key}&type=${type}&s=${title}`
+        return axiosInstance.get(`https://cors-everywhere-me.herokuapp.com/` + configOMB.baseURL + query)
     }
 };
+
+type TestType<T> = {
+    data: T
+}
+
+type ResponseType = {
+    Search: Array<string>
+    Error: string
+    Response: string
+}
 
 export default API;

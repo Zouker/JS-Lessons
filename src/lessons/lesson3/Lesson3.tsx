@@ -9,22 +9,42 @@ const Lesson3 = () => {
     const [searchNameByType, setSearchNameByType] = useState('');
     const [searchResultByType, setSearchResultByType] = useState('');
 
-    const searchFilm = () => {
+    // const searchFilm = () => {
+    //     API.searchFilmsByTitle(searchName)
+    //         .then(({data}) => {
+    //             const {Search, Error, Response} = data;
+    //             Response === 'True' ? setSearchResult(JSON.stringify(Search)) : setSearchResult(Error)
+    //         })
+    // };
 
-        API.searchFilmsByTitle(searchName)
-            .then((data) => {
-                setSearchResult(JSON.stringify(data))
-            })
-
-
+    const searchFilm = async () => {
+        try {
+            const {data} = await API.searchFilmsByTitle(searchName)
+            const {Search, Error, Response} = data;
+            Response === 'True' ? setSearchResult(JSON.stringify(Search)) : setSearchResult(Error)
+        } catch (err) {
+            console.log('err', err)
+        }
     };
 
-    const searchByType = (e: React.MouseEvent<HTMLButtonElement>) => {
+    // const searchByType = (e: React.MouseEvent<HTMLButtonElement>) => {
+    //     const type: string = e.currentTarget.dataset.t ? e.currentTarget.dataset.t : '';
+    //     API.searchFilmsByType(searchNameByType, type)
+    //         .then(({data}) => {
+    //             const {Search, Error, Response} = data;
+    //             Response === 'True' ? setSearchResultByType(JSON.stringify(Search)) : setSearchResultByType(Error)
+    //         })
+    // }
+
+    const searchByType = async (e: React.MouseEvent<HTMLButtonElement>) => {
         const type: string = e.currentTarget.dataset.t ? e.currentTarget.dataset.t : '';
-        API.searchFilmsByType(searchNameByType, type)
-            .then((data) => {
-                setSearchResultByType(JSON.stringify(data))
-            })
+        try {
+            const {data} = await API.searchFilmsByType(searchNameByType, type)
+            const {Search, Error, Response} = data;
+            Response === 'True' ? setSearchResultByType(JSON.stringify(Search)) : setSearchResultByType(Error)
+        } catch (err) {
+            console.log('err', err)
+        }
     }
 
     return (
